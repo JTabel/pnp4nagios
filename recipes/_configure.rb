@@ -20,13 +20,19 @@
 include_recipe 'pnp4nagios::_define_services'
 
 # pnp4nagios templates
-template "#{node['apache']['dir']}/conf.d/pnp4nagios.conf" do
+template "#{node['apache']['dir']}/conf-available/pnp4nagios.conf" do
   source 'pnp4nagios/pnp4nagios.conf.erb'
   owner 'root'
   group 'root'
   mode 0640
   notifies :reload, 'service[apache2]'
 end
+
+apache_config 'pnp4nagios' do
+  source 'pnp4nagios/pnp4nagios.conf.erb'
+  enable true
+end
+
 template '/etc/pnp4nagios/apache.conf' do
   source 'pnp4nagios/pnp4nagios.conf.erb'
   owner 'root'

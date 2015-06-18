@@ -4,8 +4,14 @@ Alias <%= node[:pnp4nagios][:setup][:config][:vhost][:alias_url] %> "<%= node[:p
 
 <Directory "<%= node[:pnp4nagios][:setup][:config][:vhost][:alias_path] %>">
    	AllowOverride None
-   	Order allow,deny
-   	Allow from all
+    <% if node['platform'] == 'debian' and node['platform_version'].to_i < 8 -%>
+    Order allow,deny
+    Allow from all
+    <% else -%>
+    <% node['pnp4nagios']['setup']['config']['vhost']['allowed_networks'].each do |network| -%>
+    Require ip <%= network %>
+    <% end -%>
+    <% end -%>
    	AuthName "<%= node[:pnp4nagios][:setup][:config][:vhost][:auth_name] %>"
    	AuthType Basic
    	AuthUserFile <%= node[:pnp4nagios][:htpasswd][:file] %>
