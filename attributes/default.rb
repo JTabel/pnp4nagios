@@ -31,6 +31,7 @@ default['pnp4nagios']['version'] = '0.6.19-1~debmon60+2'
 default['pnp4nagios']['htpasswd']['file'] = '/etc/pnp4nagios/htpasswd.users'
 default['pnp4nagios']['setup']['config']['vhost']['alias_url'] = '/pnp4nagios'
 default['pnp4nagios']['setup']['config']['vhost']['auth_name'] = 'Restricted Access'
+default['pnp4nagios']['setup']['config']['vhost']['allowed_networks'] = %w(10.0.0.0/8)
 default['pnp4nagios']['setup']['config']['config_php']['use_url_rewriting'] = '1'
 default['pnp4nagios']['setup']['config']['config_php']['rrdtool'] = '/usr/bin/rrdtool'
 default['pnp4nagios']['setup']['config']['config_php']['graph_width'] = '500'
